@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  test_postgresql:
+    image: postgres:14.1
+    container_name: test_postgresql
+    environment:
+      - POSTGRES_USER=alex
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=public
+    volumes:
+      - ".data:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    restart: always

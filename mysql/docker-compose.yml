@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  test_mysql:
+    build: .
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: test_mysql
+    ports:
+      - "3306:3306"
+    restart: always

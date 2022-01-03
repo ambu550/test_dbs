@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  test_mssql:
+    build: .
+    container_name: test_mssql
+#    volumes:
+#      - ".data/data:/var/opt/mssql/data"
+#      - ".data/log:/var/opt/mssql/log"
+#      - ".data/secrets:/var/opt/mssql/secrets"
+    ports:
+      - "1433:1433"
+    restart: always
