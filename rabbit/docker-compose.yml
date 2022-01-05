@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  test-rabbit:
+    image: rabbitmq:3.8-management
+    hostname: 'rabbit'
+    container_name: api-sf-rabbit
+    volumes:
+      - ".data:/var/lib/rabbitmq"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_URL=amqp://guest:guest@api-sf-rabbit:5672
+    restart: always

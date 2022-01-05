@@ -3,3 +3,4 @@
 /postrgresql/.data/
 /mssql/.data/
 /clickhouse/.data/
+/rabbit/.data/
