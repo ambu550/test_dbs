@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<yandex>
+    <!-- Profiles of settings. -->
+    <profiles>
+        <!-- Default settings. -->
+        <default>
+            <!-- Maximum memory usage for processing single query, in bytes. -->
+            <max_memory_usage>40000000000</max_memory_usage>
+
+            <!-- Use cache of uncompressed blocks of data. Meaningful only for processing many of very short queries. -->
+            <use_uncompressed_cache>0</use_uncompressed_cache>
+
+            <!-- How to choose between replicas during distributed query processing.
+                 random - choose random replica from set of replicas with minimum number of errors
+                 nearest_hostname - from set of replicas with minimum number of errors, choose replica
+                  with minimum number of different symbols between replica's hostname and local hostname
+                  (Hamming distance).
+                 in_order - first live replica is chosen in specified order.
+                 first_or_random - if first replica one has higher number of errors, pick a random one from replicas with minimum number of errors.
+            -->
+            <totals_mode>before_having</totals_mode>
+            <receive_timeout>900</receive_timeout>
+            <send_timeout>900</send_timeout>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>0</optimize_move_to_prewhere>
+            <max_partitions_per_insert_block>350</max_partitions_per_insert_block>
+            <max_execution_time>120</max_execution_time>
+        </default>
+        <etl>
+            <totals_mode>before_having</totals_mode>
+            <receive_timeout>900</receive_timeout>
+            <send_timeout>900</send_timeout>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>0</optimize_move_to_prewhere>
+            <max_partitions_per_insert_block>350</max_partitions_per_insert_block>
+            <max_memory_usage>40000000000</max_memory_usage>
+            <use_uncompressed_cache>0</use_uncompressed_cache>
+            <max_execution_time>0</max_execution_time>
+        </etl>
+
+        <!-- Profile that allows only read queries. -->
+        <readonly>
+            <readonly>1</readonly>
+        </readonly>
+        <readonly2>
+            <readonly>2</readonly>
+            <totals_mode>before_having</totals_mode>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>1</optimize_move_to_prewhere>
+            <optimize_read_in_order>1</optimize_read_in_order>
+        </readonly2>
+        <redash>
+            <readonly>2</readonly>
+            <totals_mode>before_having</totals_mode>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>1</optimize_move_to_prewhere>
+            <optimize_read_in_order>1</optimize_read_in_order>
+            <max_execution_time>120</max_execution_time>
+        </redash>
+        <redash_admin>
+            <totals_mode>before_having</totals_mode>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>1</optimize_move_to_prewhere>
+            <optimize_read_in_order>1</optimize_read_in_order>
+        </redash_admin>
+        <redash_optimized>
+            <readonly>2</readonly>
+            <totals_mode>before_having</totals_mode>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>1</optimize_move_to_prewhere>
+            <optimize_read_in_order>1</optimize_read_in_order>
+            <max_execution_time>120</max_execution_time>
+        </redash_optimized>
+        <redash_non_optimized>
+            <readonly>2</readonly>
+            <totals_mode>before_having</totals_mode>
+            <load_balancing>random</load_balancing>
+            <optimize_move_to_prewhere>0</optimize_move_to_prewhere>
+            <optimize_read_in_order>1</optimize_read_in_order>
+            <max_execution_time>120</max_execution_time>
+        </redash_non_optimized>
+        <guest>
+            <readonly>1</readonly>
+            <max_memory_usage>100000000</max_memory_usage>
+        </guest>
+    </profiles>
+
+    <!-- Users and ACL. -->
+    <users>
+        <!-- If user name was not specified, 'default' user is used. -->
+        <default>
+            <!-- Password could be specified in plaintext or in SHA256 (in hex format).
+
+                 If you want to specify password in plaintext (not recommended), place it in 'password' element.
+                 Example: <password>qwerty</password>.
+                 Password could be empty.
+
+                 If you want to specify SHA256, place it in 'password_sha256_hex' element.
+                 Example: <password_sha256_hex>65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5</password_sha256_hex>
+                 Restrictions of SHA256: impossibility to connect to ClickHouse using MySQL JS client (as of July 2019).
+
+                 If you want to specify double SHA1, place it in 'password_double_sha1_hex' element.
+                 Example: <password_double_sha1_hex>e395796d6546b1b65db9d665cd43f0e858dd4303</password_double_sha1_hex>
+
+                 How to generate decent password:
+                 Execute: PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | sha256sum | tr -d '-'
+                 In first line will be password and in second - corresponding SHA256.
+
+                 How to generate double SHA1:
+                 Execute: PASSWORD=$(base64 < /dev/urandom | head -c8); echo "$PASSWORD"; echo -n "$PASSWORD" | openssl dgst -sha1 -binary | openssl dgst -sha1
+                 In first line will be password and in second - corresponding double SHA1.
+            -->
+            <password>123456</password>
+
+            <!-- List of networks with open access.
+
+                 To open access from everywhere, specify:
+                    <ip>::/0</ip>
+
+                 To open access only from localhost, specify:
+                    <ip>::1</ip>
+                    <ip>127.0.0.1</ip>
+
+                 Each element of list has one of the following forms:
+                 <ip> IP-address or network mask. Examples: 213.180.204.3 or 10.0.0.1/8 or 10.0.0.1/255.255.255.0
+                     2a02:6b8::3 or 2a02:6b8::3/64 or 2a02:6b8::3/ffff:ffff:ffff:ffff::.
+                 <host> Hostname. Example: server01.yandex.ru.
+                     To check access, DNS query is performed, and all received addresses compared to peer address.
+                 <host_regexp> Regular expression for host names. Example, ^server\d\d-\d\d-\d\.yandex\.ru$
+                     To check access, DNS PTR query is performed for peer address and then regexp is applied.
+                     Then, for result of PTR query, another DNS query is performed and all received addresses compared to peer address.
+                     Strongly recommended that regexp is ends with $
+                 All results of DNS requests are cached till server restart.
+            -->
+            <networks incl="networks" replace="replace">
+                <ip>::/0</ip>
+            </networks>
+
+            <!-- Settings profile for user. -->
+            <profile>default</profile>
+
+            <!-- Quota for user. -->
+            <quota>default</quota>
+        </default>
+
+        <redash>
+            <password>redash</password>
+            <quota>default</quota>
+            <networks incl="networks" replace="replace">
+                <host>redash-9_server_1</host>
+                <ip>::/0</ip>
+            </networks>
+        </redash>
+        <redash_admin>
+            <password>redash_admin</password>
+            <profile>redash_admin</profile>
+            <quota>default</quota>
+            <networks incl="networks" replace="replace">
+                <host>redash-9_server_1</host>
+            </networks>
+        </redash_admin>
+
+    </users>
+
+    <!-- Quotas. -->
+    <quotas>
+        <!-- Name of quota. -->
+        <default>
+            <!-- Limits for time interval. You could specify many intervals with different limits. -->
+            <interval>
+                <!-- Length of interval. -->
+                <duration>3600</duration>
+
+                <!-- No limits. Just calculate resource usage for time interval. -->
+                <queries>0</queries>
+                <errors>0</errors>
+                <result_rows>0</result_rows>
+                <read_rows>0</read_rows>
+                <execution_time>0</execution_time>
+            </interval>
+        </default>
+	<guest>
+            <!-- Limits for time interval. You could specify many intervals with different limits. -->
+            <interval>
+                <!-- Length of interval. -->
+                <duration>3600</duration>
+
+                <!-- No limits. Just calculate resource usage for time interval. -->
+                <queries>0</queries>
+                <errors>0</errors>
+                <result_rows>10000</result_rows>
+                <read_rows>10000</read_rows>
+                <execution_time>200</execution_time>
+            </interval>
+        </guest>
+    </quotas>
+</yandex>
