@@ -14,7 +14,7 @@ services:
     networks:
       - test_dbs_network
   checker:
-    build: .
+    build: ./api
     container_name: checker
     volumes:
       - ./api:/api
