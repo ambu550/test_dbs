@@ -4,10 +4,16 @@ services:
   test_mssql:
     build: .
     container_name: test_mssql
-#    volumes:
-#      - ".data/data:/var/opt/mssql/data"
-#      - ".data/log:/var/opt/mssql/log"
-#      - ".data/secrets:/var/opt/mssql/secrets"
+    #    volumes:
+    #      - ".data/data:/var/opt/mssql/data"
+    #      - ".data/log:/var/opt/mssql/log"
+    #      - ".data/secrets:/var/opt/mssql/secrets"
     ports:
       - "1433:1433"
     restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network

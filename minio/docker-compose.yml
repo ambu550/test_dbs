@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  test_minio:
+    image: minio/minio:RELEASE.2021-01-16T02-19-44Z
+    container_name: test_minio
+    volumes:
+      - .data:/data
+    ports:
+      - "8888:80"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+      - MINIO_BUCKET=test_bucket
+    entrypoint: sh
+    command: -c 'mkdir -p /data/test_bucket && /usr/bin/minio server /data --address ":80"'
+    restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network

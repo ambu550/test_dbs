@@ -8,3 +8,9 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network

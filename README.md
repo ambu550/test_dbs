@@ -1,9 +1,17 @@
 # test_dbs
 тестовые бд
 
-clickhouse db: ch_database system  test test_db
+clickhouse db: system 
 
     default 12345
+
+mssql   db: test_db
+
+    SA  Test12345
+
+minio
+
+    minioadmin  minioadmin
 
 mysql db: test sys
 
@@ -13,6 +21,8 @@ mysql db: test sys
 
 postgresql db: public
 
-    alex 12345
+    alex 1234
 
-    
+rabbit
+
+    guest   guest

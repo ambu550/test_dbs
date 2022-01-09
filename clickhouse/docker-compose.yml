@@ -9,3 +9,9 @@ services:
     ports:
       - "8124:8124"
     restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network
