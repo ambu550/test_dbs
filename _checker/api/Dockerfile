@@ -1,7 +1,8 @@
 FROM php:7.3-fpm
 
-COPY ./api /api
+COPY . /api
 WORKDIR /api
+
 RUN apt-get update
 RUN apt-get install -y nano zip unzip
 
@@ -16,5 +17,6 @@ RUN apt-get install -y libpq-dev \
   && docker-php-ext-install pdo pdo_pgsql pgsql pdo_mysql
 
 
-#ENTRYPOINT ["sh", "/api/entrypoint.sh"]
-CMD ["php-fpm"]
+#CMD ["php-fpm"]
+
+CMD [ "./entrypoint.sh"]
