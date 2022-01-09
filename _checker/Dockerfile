@@ -3,7 +3,7 @@ FROM php:7.3-fpm
 COPY ./api /api
 WORKDIR /api
 RUN apt-get update
-RUN apt-get install -y nano
+RUN apt-get install -y nano zip unzip
 
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.2.4
