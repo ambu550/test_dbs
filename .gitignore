@@ -4,3 +4,6 @@
 /mssql/.data/
 /clickhouse/.data/
 /rabbit/.data/
+/minio/.data/
+
+/_checker/api/vendor/

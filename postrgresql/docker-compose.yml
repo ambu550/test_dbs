@@ -10,6 +10,12 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_USER=alex
-      - POSTGRES_PASSWORD=12345
+      - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=public
     restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network
