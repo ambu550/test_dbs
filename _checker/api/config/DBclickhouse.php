@@ -1,5 +1,5 @@
 <?php
-//require  '../vendor/autoload.php';
+require  '../vendor/autoload.php';
 
 
 class DBclickhouse
@@ -7,6 +7,7 @@ class DBclickhouse
 
     function getConnection()
     {
+
         $config = [
             'host' => 'test_clickhouse',
             'port' => '8124',
