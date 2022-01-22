@@ -3,7 +3,9 @@
 class TableBuilder
 {
 public function table_builder($data,$fields_array){
-    echo '<a href='.'http://'.$_SERVER['HTTP_HOST'].'>вернуться на главную</a>';
+    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'>вернуться на главную</a></p>';
+    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_tables.php'.'>показать потаблично</a></p>';
+    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_schemas.php'.'>показать посхемно</a></p>';
     // формимруем таблицу если есть результат
     if (count($data["list"])) {
         echo'<body link="#0000FF" vlink="#0000FF" alink="#0000FF">';
@@ -30,7 +32,7 @@ public function table_builder($data,$fields_array){
                         break;
                     //если колонка с названием таблицы генерировать ссылку с переходом на конкретную таблицу
                     case "table":
-                        echo '<td><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_table.php?table='.$list[$value].'&schema='.$list['database'].'>'.$list[$value]."</a></td>";
+                        echo '<td><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_table.php?schema='.$list['database'].'&table='.$list[$value].'>'.$list[$value]."</a></td>";
                         break;
                     default:
                         echo "<td>".$list[$value]."</td>";

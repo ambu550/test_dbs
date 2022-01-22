@@ -24,7 +24,7 @@ $input_params = [
 // запрос в Кликхаус
 $statement = $db->select("
 SELECT {fields} FROM system.columns col
-where database not in ('system')
+where database NOT IN ('system','INFORMATION_SCHEMA','information_schema')
 AND (database like'%{search}%' or table like'%{search}%' or name like'%{search}%')
 ORDER BY {fields}
 ", $input_params);
@@ -32,15 +32,14 @@ ORDER BY {fields}
 $data=(["list" => $statement->rows()]);
 
 echo "<h1>проверка базы CLICKHOUSE</h1>";
-echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_tables.php'.'>показать потаблично</a></p>';
-echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_schemas.php'.'>показать посхемно</a></p>';
+
 
 
 echo "<h3>Результаты поиска</h3>";
 echo "
 <form action='clickhouse_search.php' method=\"get\">
- <p>Поиск: <input type=\"text\" name=\"search\" value=\"$search\"/></p>
- <p><input type=\"submit\" /></p>
+ <p>Поиск: <input type=\"text\" name=\"search\" /></p>
+ <p><input type=\"submit\" value=\"Искать\" /></p>
 </form>";
 
 $builder->table_builder($data,$fields_array);

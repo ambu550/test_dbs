@@ -25,7 +25,7 @@ select
 database,COUNT(database) as tables_count,
 SUM(total_bytes) as total_bytes
 from system.tables
-where database NOT IN ('system')
+where database NOT IN ('system','INFORMATION_SCHEMA','information_schema')
 GROUP BY database
 ", $input_params);
 // результат запроса
