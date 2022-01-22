@@ -2,10 +2,13 @@
 
 class TableBuilder
 {
-public function table_builder($data,$fields_array){
-    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'>вернуться на главную</a></p>';
-    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_tables.php'.'>показать потаблично</a></p>';
-    echo '<p><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_schemas.php'.'>показать посхемно</a></p>';
+public function table_builder($data,$fields_array, $links=true){
+    if ($links===true) {
+        echo '<p><a href=' . 'http://' . $_SERVER['HTTP_HOST'] . '>вернуться на главную</a></p>';
+        echo '<p><a href=' . 'http://' . $_SERVER['HTTP_HOST'] . '/checks/clickhouse_tables.php' . '>показать потаблично</a></p>';
+        echo '<p><a href=' . 'http://' . $_SERVER['HTTP_HOST'] . '/checks/clickhouse_schemas.php' . '>показать посхемно</a></p>';
+    }
+
     // формимруем таблицу если есть результат
     if (count($data["list"])) {
         echo'<body link="#0000FF" vlink="#0000FF" alink="#0000FF">';

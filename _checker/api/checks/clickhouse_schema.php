@@ -37,7 +37,7 @@ $data=(["list" => $statement->rows()]);
 
 echo "<h1>проверка базы CLICKHOUSE (схема ".$schema.")</h1>";
 
-$builder->table_builder($data,$fields_array);
+$builder->table_builder($data,$fields_array,false);
 echo "<h1></h1>";
 
 
@@ -57,7 +57,10 @@ $statement = $db->select("
 SELECT {fields}
 FROM system.tables
 LEFT JOIN
-( select database ,table from system.columns group by  database ,table)c
+( select database ,table from system.columns 
+WHERE database='{schema}'
+GROUP BY  database ,table
+ )c
 ON name =c.table
 WHERE database not in ('system')
 AND database = '{schema}'

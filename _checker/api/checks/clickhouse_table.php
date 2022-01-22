@@ -38,8 +38,7 @@ ORDER BY {fields}
 // результат запроса
     $data = (["list" => $statement->rows()]);
 
-//добавляем min max
-array_push($fields_array, "min", "max");
+
     echo "<h1>таблицa (".$schema.".".$table.") в CLICKHOUSE </h1>";
     echo '<h3><a href='.'http://'.$_SERVER['HTTP_HOST'].'/checks/clickhouse_table_gran.php?schema='.$schema.'&table='.$table.'>расчитать граничные значения</a></h3>';
 
