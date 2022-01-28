@@ -1,7 +1,7 @@
 <?php
 require '../vendor/autoload.php';
 require_once("../config/DBclickhouse.php");
-require_once("TableBuilder.php");
+require_once("../config/TableBuilder.php");
 
 $builder = new TableBuilder();
 

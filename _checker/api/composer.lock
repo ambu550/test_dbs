@@ -4,8 +4,76 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1289080fd725d322b615d8ea12029acc",
+    "content-hash": "189b55b44aa1fc6308843637abf53d42",
     "packages": [
+        {
+            "name": "rezon73/pdo-vertica",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rezon73/Slim-PDO-Vertica.git",
+                "reference": "60409f80f280d6267bcdd9f02db2c077590cb5bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rezon73/Slim-PDO-Vertica/zipball/60409f80f280d6267bcdd9f02db2c077590cb5bc",
+                "reference": "60409f80f280d6267bcdd9f02db2c077590cb5bc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "phan/phan": "^2.2",
+                "phpunit/phpunit": "^8",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rezon73\\PDO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabian de Laender",
+                    "email": "fabian@faapz.productions",
+                    "homepage": "https://faapz.productions",
+                    "role": "Owner"
+                },
+                {
+                    "name": "Alexander Barker",
+                    "email": "alex@1stleg.com",
+                    "homepage": "https://github.com/kwhat/",
+                    "role": "Collaborator"
+                },
+                {
+                    "name": "Karen Gasparyan",
+                    "email": "rezon73@gmail.com",
+                    "homepage": "https://github.com/rezon73/",
+                    "role": "Collaborator"
+                }
+            ],
+            "description": "Just another PDO database library special for Vertica",
+            "homepage": "https://github.com/rezon73/PDO",
+            "keywords": [
+                "database",
+                "pdo",
+                "sql",
+                "vertica"
+            ],
+            "support": {
+                "docs": "https://github.com/rezon73/PDO/blob/master/docs/README.md",
+                "issues": "https://github.com/rezon73/PDO/issues",
+                "source": "https://github.com/rezon73/Slim-PDO-Vertica/tree/2.2.0"
+            },
+            "time": "2020-05-08T05:25:45+00:00"
+        },
         {
             "name": "smi2/phpclickhouse",
             "version": "1.4.1",

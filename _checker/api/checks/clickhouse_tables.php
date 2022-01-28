@@ -1,6 +1,6 @@
 <?php
 require_once("../config/DBclickhouse.php");
-require_once("TableBuilder.php");
+require_once("../config/TableBuilder.php");
 
 $builder = new TableBuilder();
 
@@ -26,7 +26,7 @@ FROM system.tables
 LEFT JOIN
 ( select database ,table from system.columns group by  database ,table)c
 ON name =c.table
-WHERE database not in ('system')
+where database NOT IN ('system','INFORMATION_SCHEMA','information_schema')
 ", $input_params);
 
 // результат запроса

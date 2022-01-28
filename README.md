@@ -26,3 +26,7 @@ postgresql db: public
 rabbit
 
     guest   guest
+
+vertica db:VMart
+
+    newdbadmin  vertica

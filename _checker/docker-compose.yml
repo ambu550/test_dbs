@@ -20,6 +20,7 @@ services:
     restart: always
     volumes:
       - ./api:/api
+      - ./.settings/odbc.ini:/etc/odbc.ini
     networks:
       - test_dbs_network
 

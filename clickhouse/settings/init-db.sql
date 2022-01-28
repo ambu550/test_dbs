@@ -82,3 +82,9 @@ INSERT INTO test2.drivers
 (id,name,created_at)
 VALUES
     (1,'Vasiliy', '2021-01-01');
+
+CREATE TABLE test.string_table
+(
+    `string_column` Nullable(String)
+)
+    ENGINE = Log;

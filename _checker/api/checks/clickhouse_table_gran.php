@@ -1,6 +1,6 @@
 <?php
 require_once("../config/DBclickhouse.php");
-require_once("TableBuilder.php");
+require_once("../config/TableBuilder.php");
 
 
     // подключение к КликХаусу
@@ -26,15 +26,26 @@ $input_params = [
     'schema' => $schema
 ];
 
-// запрос в Кликхаус что бы получить поля
+// запрос в Кликхаус что бы получить поля по которым имеет смысл считать границы
     $statement = $db->select("
 SELECT {fields} FROM system.columns col
 where  database = '{schema}'
 AND table = '{table}'
+AND 
+  ( type ILIKE '%Int8%'
+    OR type ILIKE '%Int16%'
+    OR type ILIKE '%Int32%'
+    OR type ILIKE '%Int64%'
+    OR type ILIKE '%Date%'
+    )
+AND type NOT ILIKE '%Array%'
 ORDER BY {fields}
 ", $input_params);
 
+
 $columns=($statement->rows());
+
+//защита если вдруг не будет нумеровых колонок и нечего будет джойнить
 
 for ($i=0; $i<count($columns) ; $i++) {
 
@@ -49,12 +60,23 @@ for ($i=0; $i<count($columns) ; $i++) {
 
 }
 
+//защита если вдруг не будет нумеровых колонок и нечего будет джойнить
+
+if (count($columns) === 0) {
+    $statement = $db->select("
+SELECT {fields} FROM system.columns col
+where database = '{schema}'
+AND table = '{table}'
+ORDER BY position
+", $input_params);
+    echo "<h5>нет колонок для просчёта граничных значений (Int\UInt\Date\DateTime) </h5>";
+} else {
 
 // параметры для Кликхауса
-$input_params['UNION'] = $UNION;
+    $input_params['UNION'] = $UNION;
 
 // повторный на  кх запрос в Кликхаус
-$statement = $db->select("
+    $statement = $db->select("
 SELECT * FROM
 (SELECT {fields} FROM system.columns col
 where database = '{schema}'
@@ -64,10 +86,7 @@ LEFT JOIN
 ({UNION}) gen
 on c.name=gen.join_name
 ", $input_params);
-
-
-
-
+}
 
 
 // результат запроса
@@ -78,3 +97,4 @@ array_push($fields_array, "min", "max");
     echo "<h1>таблицa (".$schema.".".$table.") в CLICKHOUSE </h1>";
 
     $builder->table_builder($data, $fields_array);
+
