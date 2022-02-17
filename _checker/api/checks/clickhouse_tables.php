@@ -10,7 +10,7 @@ $db = new ClickHouseDB\Client($conn->getConnection());
 $db->database('system');
 
 // передаём массив полей которые хотим выгрузить
-$fields_array =["database", "table", "name", "type", "comment"];
+$fields_array =["database","table","total_rows","total_bytes" ,"engine_full"];
 $fields = implode(",",$fields_array);
 
 
@@ -21,21 +21,18 @@ $input_params = [
 
 // запрос в Кликхаус
 $statement = $db->select("
-SELECT {fields} FROM system.columns col
+SELECT {fields}
+FROM system.tables
+LEFT JOIN
+( select database ,table from system.columns group by  database ,table)c
+ON name =c.table
 where database NOT IN ('system','INFORMATION_SCHEMA','information_schema')
-ORDER BY {fields}
 ", $input_params);
+
 // результат запроса
 $data=(["list" => $statement->rows()]);
 
-echo "<h1>проверка базы CLICKHOUSE</h1>";
 
-echo "<h3>Полное инфо для поиска</h3>";
-echo "
-<form action='clickhouse_search.php' method=\"get\">
- <p>Поиск: <input type=\"text\" name=\"search\"  placeholder=\"имя схемы или таблицы\" title='частичный поиск по имени схемы и\или таблицы'/></p>
- <p><input type=\"submit\" value=\"Искать\" /></p>
-</form>";
+echo "<h1>таблицы в CLICKHOUSE</h1>";
 
 $builder->table_builder($data,$fields_array);
-

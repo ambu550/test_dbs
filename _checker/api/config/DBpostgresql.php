@@ -17,13 +17,12 @@ class DBpostgresql
 
         $stat = pg_connection_status($c_conn);
         if ($stat === PGSQL_CONNECTION_OK) {
-          //  echo "Статус соединения: доступно \n";
+            return $c_conn;
         } else {
-            echo "Статус соединения: разорвано \n";
+            echo "<h1>Статус соединения: разорвано </h1>";
+            die();
         }
 
-
-        return $c_conn;
     }
 
 }

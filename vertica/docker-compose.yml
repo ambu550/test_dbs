@@ -1,0 +1,19 @@
+version: '3.5'
+
+services:
+  test_vertica:
+    image:  vertica/vertica-ce:11.0.2-0
+    environment:
+      APP_DB_USER: "newdbadmin"
+      APP_DB_PASSWORD: "vertica"
+    container_name: test_vertica
+    ports:
+      - "5433:5433"
+      - "5444:5444"
+    restart: always
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network

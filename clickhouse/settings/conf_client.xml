@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <user>default</user>
+    <password>12345</password>
+    <port>9000</port>
+</config>
+
+<!-- ADD conf_client.xml /etc/clickhouse-client/config.xml
+to change internal port
+-->

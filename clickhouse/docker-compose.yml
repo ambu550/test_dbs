@@ -1,11 +1,14 @@
-version: '3.7'
+version: '3.5'
 
 services:
   test_clickhouse:
-    build: .
+    build: settings
     container_name: test_clickhouse
     volumes:
-      - ".data:/var/lib/clickhouse"
+      - .data:/var/lib/clickhouse
+      - ./settings/users.xml:/etc/clickhouse-server/users.xml
+      - ./settings/config.xml:/etc/clickhouse-server/config.xml
+      - ./settings/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     ports:
       - "8124:8124"
     restart: always

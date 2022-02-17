@@ -1,4 +1,4 @@
-FROM yandex/clickhouse-server:20.9
+FROM yandex/clickhouse-server:21.11.10.1
 
 
 ENV CLICKHOUSE_DB=ch_database
