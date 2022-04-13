@@ -1,6 +1,8 @@
 <?php
 
 class TableBuilder
+
+
 {
 public function table_builder($data,$fields_array, $links=true){
     if ($links===true) {
@@ -11,6 +13,11 @@ public function table_builder($data,$fields_array, $links=true){
 
     // формимруем таблицу если есть результат
     if (count($data["list"])) {
+        echo '<head>';
+        echo '<meta charset="UTF-8">';
+        //echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.1.2/dist/css/bootstrap.min.css">';
+        echo '</head>';
+
         echo'<body link="#0000FF" vlink="#0000FF" alink="#0000FF">';
         // Open the table
         echo "<table border=1>";

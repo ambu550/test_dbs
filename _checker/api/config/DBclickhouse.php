@@ -1,7 +1,12 @@
 <?php
 require  '../vendor/autoload.php';
+use Symfony\Component\Dotenv\Dotenv;
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env');
 
-
+/**
+ * подключение к бд ClickHouse
+ */
 class DBclickhouse
 {
 
@@ -9,11 +14,11 @@ class DBclickhouse
     {
 
         $config = [
-            'host' => 'test_clickhouse',
-            'port' => '8124',
-            'database' => 'system',
-            'username' => 'default',
-            'password' => '12345'
+            'host' => $_ENV['CLICKHOUSE_HOST'],
+            'port' => $_ENV['CLICKHOUSE_PORT'],
+            'database' => $_ENV['CLICKHOUSE_DATABASE'],
+            'username' => $_ENV['CLICKHOUSE_USER'],
+            'password' => $_ENV['CLICKHOUSE_PASSWORD']
         ];
 
         return $config;
