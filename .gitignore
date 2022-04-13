@@ -7,3 +7,5 @@
 /minio/.data/
 
 /_checker/api/vendor/
+/_checker/api/config/.env
+/_checker/api/_output/

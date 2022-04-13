@@ -1,4 +1,7 @@
 <?php
+use Symfony\Component\Dotenv\Dotenv;
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env');
 
 class DBpostgresql
 {
@@ -7,11 +10,11 @@ class DBpostgresql
     {
    //     echo "\n Start connect...\n";
         $c_conn= pg_connect(
-            "host=test_postgresql
-        port=5432 
-        dbname=public 
-        user=alex 
-        password=1234")
+            "host=".$_ENV['POSTGRES_HOST'].
+        " port=".$_ENV['POSTGRES_PORT'].
+        " dbname=".$_ENV['POSTGRES_DB'].
+        " user=".$_ENV['POSTGRES_USER'].
+        " password=".$_ENV['POSTGRES_PASSWORD'])
        ;// or die('Не удалось соединиться: ' . pg_last_error())
 
 

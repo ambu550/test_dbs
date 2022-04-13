@@ -23,6 +23,5 @@ RUN apt-get install -y libpq-dev \
 #RUN cp opt/vertica/opt/vertica/lib64/libverticaodbc.so /opt/vertica/lib/
 
 
-#CMD ["php-fpm"]
-
-CMD [ "./entrypoint.sh"]
+CMD ["php-fpm"]
+#RUN [ "./entrypoint.sh"]

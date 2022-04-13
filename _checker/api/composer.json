@@ -3,7 +3,8 @@
     "type": "project",
     "require": {
         "smi2/phpclickhouse": "^1.4",
-        "rezon73/pdo-vertica": "^2.2"
+        "rezon73/pdo-vertica": "^2.2",
+        "symfony/dotenv": "^5.4"
     },
     "autoload": {
         "psr-4": {

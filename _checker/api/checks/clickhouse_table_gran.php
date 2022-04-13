@@ -51,11 +51,11 @@ for ($i=0; $i<count($columns) ; $i++) {
 
     if($i==0){
 
-        $UNION = $UNION." SELECT '".$columns[$i]['name']."' as join_name, toString(min(".$columns[$i]['name']."))as min, toString(max(".$columns[$i]['name']."))as max FROM ".$schema.".".$table." \n";
+        $UNION = $UNION." SELECT '".$columns[$i]['name']."' as join_name, toString(min(".$columns[$i]['name'].")) as min, toString(max(".$columns[$i]['name'].")) as max FROM ".$schema.".".$table." \n";
 
     }else{
 
-        $UNION = $UNION."UNION ALL SELECT '".$columns[$i]['name']."' as join_name, toString(min(".$columns[$i]['name']."))as min, toString(max (".$columns[$i]['name']."))as max FROM ".$schema.".".$table." \n";
+        $UNION = $UNION."UNION ALL SELECT '".$columns[$i]['name']."' as join_name, toString(min(".$columns[$i]['name'].")) as min, toString(max (".$columns[$i]['name'].")) as max FROM ".$schema.".".$table." \n";
     }
 
 }

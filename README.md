@@ -1,3 +1,8 @@
+#  _checker
+
+    http://localhost:8080
+
+
 # test_dbs
 тестовые бд
 
@@ -21,7 +26,7 @@ mysql db: test sys
 
 postgresql db: public
 
-    alex 1234
+    alex 12345
 
 rabbit
 

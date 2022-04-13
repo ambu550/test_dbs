@@ -2,7 +2,7 @@
 require  '../vendor/autoload.php';
 
 
-class DBclickhouse
+class DBvertica
 {
 
     function getConnection()
