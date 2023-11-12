@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  artemis:
+    image: vromero/activemq-artemis:2.10.1
+    #image: apache/activemq-artemis:2.30.0-alpine
+    container_name: test_artemis
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+    volumes:
+      - ./settings/broker.xml:/var/lib/artemis/etc-override/broker.xml
+      #- ./settings/broker.xml:/var/lib/artemis-instance/etc-override/broker.xml
+    restart: always
+    environment:
+      - DISABLE_SECURITY=true
+      - ARTEMIS_USERNAME=artemis
+      - ARTEMIS_PASSWORD=pass
+    networks:
+      - test_dbs_network
+
+networks:
+  test_dbs_network:
+    name: test_dbs_network

@@ -35,3 +35,18 @@ rabbit
 vertica db:VMart
 
     newdbadmin  vertica
+
+mariaDb db:TEST_SCHEMA
+
+    root
+    TEST_SCHEMA password!
+
+
+Oracle db:DEV_USER
+
+    root
+    DEV_USER password!
+
+artemis localhost:8161
+
+    artemis pass
